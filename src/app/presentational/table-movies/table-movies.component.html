@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-hover table-borderless mt-3">
+              <thead class="bg-primary text-white">
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Fecha de publicación</th>
+                  <th>Hora</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let movie of Movies">
+                  <td>{{movie.id}}</td>
+                  <td>{{movie.nombre}}</td>
+                  <td>{{movie.publication_date.day}}/{{movie.publication_date.month}}/{{movie.publication_date.year}}</td>
+                  <td>{{movie.time}}</td>
+                  <td><span class="material-icons" style="font-size: 20px;vertical-align: middle;" [ngStyle]="{color: headersStatus[movie.status].color}">fiber_manual_record</span>{{movie.status}}</td>
+                  <td>
+                    <app-edit-movie [movieId]="movie.id" (onUpdate)="refresh($event)"></app-edit-movie>
+                    <span tooltip="Borrar" placement="bottom" show-delay="300"><button type="button" class="btn download-btn bg-secondary" (click)="onDelete(movie.id)"><i class="material-icons p-1 icon text-white">delete_outline</i></button></span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+    </div>
+</div>
+

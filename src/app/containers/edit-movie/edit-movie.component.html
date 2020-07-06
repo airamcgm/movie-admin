@@ -1,0 +1,81 @@
+<span tooltip="Editar" placement="bottom" show-delay="300"><button (click)="open(content)" type="button" class="btn download-btn bg-info mr-2"><i class="material-icons p-1 icon text-white">edit</i></button></span>
+<ng-template #content let-modal class="position-modal">
+    <div class="modal-header">
+        <div>
+            <h1 class="modal-title mt-0" id="modal-basic-title">
+                <i class="material-icons icon text-primary mb-1" style="font-size: 30px;">add</i><span
+                    class="pt-1">Nueva película</span>
+            </h1>
+            <small>Introduce los campos con los datos de la nueva película</small>
+        </div>
+        <button type="button" class="btn download-btn absolute-btn bg-danger mr-2" aria-label="Close"
+            (click)="modal.dismiss('Cross click')">
+            <i class="material-icons p-1 icon text-white">close</i>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form #formDirective="ngForm" [formGroup]="newMovieForm" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+                <label class="form-group col-md-12">Nombre
+                    <input type="text" class="form-control" formControlName="nombre" />
+                    <small *ngIf="
+              (nombre.dirty || nombre.touched) &&
+              nombre.invalid &&
+              nombre.errors.required
+            " class="text-danger row d-flex justify-content-end mr-2"><b>Campo requerido</b></small>
+                </label>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12" style="padding-left: 5px;">
+                    Fecha de publicación
+                    <div class="input-group pl-0">
+                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker"
+                            formControlName="publication_date" />
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar pb-0" (click)="d.toggle()" type="button">
+                                <span class="material-icons">event</span>
+                            </button>
+                        </div>
+                    </div>
+                    <small *ngIf="
+                    (publication_date.dirty || publication_date.touched) &&
+                    publication_date.invalid &&
+                    publication_date.errors.required
+                  " class="text-danger row d-flex justify-content-end mr-2"><b>Campo requerido</b></small>
+                </div>
+            </div>
+            <div class="form-row">
+                <label class="form-group col-md-6">Estado
+                    <select formControlName="status" class="form-control">
+                        <option value="null" selected>Selecciona...</option>
+                        <option value="Activo">Activo</option>
+                        <option value="Inactivo">Inactivo</option>
+                    </select>
+                    <small *ngIf="
+                    (status.dirty || status.touched) &&
+                    status.invalid &&
+                    status.errors.required
+                  " class="text-danger row d-flex justify-content-end mr-2"><b>Campo requerido</b></small>
+                </label>
+                <label class="form-group col-md-6">Hora de la función
+                    <input type="time" class="form-control" formControlName="time" />
+                    <small *ngIf="
+                    (time.dirty || time.touched) &&
+                    time.invalid &&
+                    time.errors.required
+                  " class="text-danger row d-flex justify-content-end mr-2"><b>Campo requerido</b></small>
+                </label>
+            </div>
+            <div class="row d-flex justify-content-end mr-0">
+                <button class="btn btn-outline-danger circle-radius mr-1" (click)="modal.dismiss('Cross click')">
+                    <i class="material-icons p-1 icon">close</i>
+                    Cancelar
+                </button>
+                <button type="submit" class="btn btn-outline-info circle-radius ml-1">
+                    <i class="material-icons p-1 icon">arrow_forward_ios</i>
+                    Editar
+                </button>
+            </div>
+        </form>
+    </div>
+</ng-template>
